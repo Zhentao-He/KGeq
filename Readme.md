@@ -64,27 +64,11 @@ $$
 $R$ Chebyshev
 $\vartheta$ spin-weighted harmonics
 
-$$
-\begin{equation}
+To filter high order modes
+exp filter[2010.00162]
 
-\end{equation}
-$$
-
-exp filter
-
-$$
-\begin{equation}
-
-\end{equation}
-$$
 
 # time-evolution
 
 RK4
-ode45
 
-$$
-\begin{equation}
-
-\end{equation}
-$$
