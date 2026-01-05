@@ -61,30 +61,17 @@ $$
 [MatlCheb](https://github.com/Zhentao-He/MatlCheb) is required
 
 求导矩阵
-$R$ Chebyshev
-$\vartheta$ spin-weighted harmonics
+$R$ Chebyshev `cheb`
 
-$$
-\begin{equation}
+$\vartheta$ spin-weighted harmonics `laplacian_D`
 
-\end{equation}
-$$
+To filter high order modes
 
-exp filter
-
-$$
-\begin{equation}
-
-\end{equation}
-$$
+exp filter[2010.00162]
+`loss_pass`,`cheb_fiter`
 
 # time-evolution
 
 RK4
-ode45
 
-$$
-\begin{equation}
-
-\end{equation}
-$$
+See the main program `myTeuk`
