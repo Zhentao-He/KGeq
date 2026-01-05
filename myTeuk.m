@@ -94,7 +94,7 @@ T = (0:TN)*dT;
 
 
 % 开始演化---------------------
-eq = @(psi,P)KGeq(psi,P,cTT,cTR,cRR,cT,cR,c,D1R,D2R,DLaplace);
+eq = @(P,psi)KGeq(P,psi,cTT,cTR,cRR,cT,cR,c,D1R,D2R,DLaplace);
 P_sol = zeros(nR+1,ny,TN);
 psi_sol = zeros(nR+1,ny,TN);
 P_sol(:,:,1) = P_init;
@@ -111,7 +111,7 @@ for ii = 2:TN+1
 end
 toc
 
-function [kP,kphi] = KGeq(psi,P,cTT,cTR,cRR,cT,cR,c,D1R,D2R,DLaplace)
+function [kP,kphi] = KGeq(P,psi,cTT,cTR,cRR,cT,cR,c,D1R,D2R,DLaplace)
 % 本函数根据线性阶的Teuk方程计算演化变量P,psi的时间导数
 % 方程系数cT,cR,c和求导矩阵DLaplace与s,m有关，必须在调用此函数时确保一致
     kphi = (P - ( cTR.*(D1R*psi) + cT.*psi ) )./cTT;
