@@ -22,7 +22,6 @@ y=y.';   %行向量y=-cos(\theta)
 
 [D1R,R]=cheb(nR);
 R=(R+1)*RH/2; D1R=D1R/(RH/2); D2R = D1R^2;
-RDR = R.*D1R;
 
 [RR,yy] = ndgrid(R,y);
 syy = sqrt(1-yy.^2);      % sin(\theta)
@@ -85,13 +84,12 @@ clear Q_init
 %--------------------------------------------------------------------------
 % time step for RK4
 dt = 9/((nR+1)^2);
-tn = floor(0.001*M/dt);
+tn = floor(0.1*M/dt);
 dT = tn*dt;
-TL = 0.003*M; % 总时长
+TL = 60*M; % 总时长
 TN = ceil(TL/dT);
 
 T = (0:TN)*dT;
-
 
 % 开始演化---------------------
 eq = @(P,psi)KGeq(P,psi,cTT,cTR,cRR,cT,cR,c,D1R,D2R,DLaplace);
@@ -111,11 +109,15 @@ for ii = 2:TN+1
 end
 toc
 
+figure
+plot(T,reshape(abs(psi_sol(end,end,:)),[length(T),1]))
+
+%%
 function [kP,kphi] = KGeq(P,psi,cTT,cTR,cRR,cT,cR,c,D1R,D2R,DLaplace)
 % 本函数根据线性阶的Teuk方程计算演化变量P,psi的时间导数
 % 方程系数cT,cR,c和求导矩阵DLaplace与s,m有关，必须在调用此函数时确保一致
     kphi = (P - ( cTR.*(D1R*psi) + cT.*psi ) )./cTT;
-    kP = -(cRR.*(D2R*psi) + cR.*(D1R*psi) )  - c.*psi - psi*DLaplace;
+    kP = -(cRR.*(D2R*psi) + cR.*(D1R*psi) )  - c.*psi + psi*DLaplace;
 end
 
 function [P_next,psi_next] = teuk_time_step(eq,dT,P,psi,swal_filter)
@@ -138,3 +140,4 @@ function [P_next,psi_next] = teuk_time_step(eq,dT,P,psi,swal_filter)
     P_next = P_next*swal_filter;
     psi_next = psi_next*swal_filter;
 end
+
